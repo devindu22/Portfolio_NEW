@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Devindu Malshan - AI Engineer & Software Architect Portfolio</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#030712',
+                        darkPanel: '#090d16',
+                        primaryBlue: '#0ea5e9',
+                        electricBlue: '#3b82f6',
+                        tealAccent: '#06b6d4',
+                        accentPurple: '#8b5cf6',
+                    },
+                    fontFamily: {
+                        heading: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts: Space Grotesk & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Canvas Confetti CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f3f4f6;
+            overflow-x: hidden;
+        }
+        
+        .font-heading {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-panel {
+            background: rgba(9, 13, 22, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .glass-panel-hover:hover {
+            border-color: rgba(14, 165, 233, 0.4);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
+            transform: translateY(-4px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Tech Tag Highlight */
+        .tech-badge {
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            color: #38bdf8;
+        }
+
+        /* Radial Gradients Background Mesh */
+        .radial-mesh {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            pointer-events: none;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.05) 0%, transparent 50%);
+        }
+
+        /* Custom scrollbar customizing */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #030712;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+
+        /* Custom glow effects */
+        .text-glow {
+            text-shadow: 0 0 10px rgba(14, 165, 233, 0.5);
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-primaryBlue selection:text-white">
+
+    <!-- Background Canvas Container -->
+    <div class="fixed inset-0 w-full h-full z-0 overflow-hidden pointer-events-none">
+        <canvas id="neuralCanvas" class="w-full h-full opacity-60"></canvas>
+    </div>
+    <div class="fixed inset-0 radial-mesh z-0"></div>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="relative z-10 flex flex-col min-h-screen">
+
+        <!-- HEADER NAVIGATION -->
+        <header class="sticky top-0 w-full glass-panel z-50 border-b border-white/5 backdrop-blur-md">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+                <a href="#hero" class="flex items-center space-x-3 group">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primaryBlue to-accentPurple flex items-center justify-center font-heading font-bold text-white text-lg tracking-wider shadow-lg shadow-primaryBlue/25 group-hover:scale-105 transition-transform">
+                        DM
+                    </div>
+                    <div>
+                        <span class="block font-heading font-bold tracking-tight text-white group-hover:text-primaryBlue transition-colors">Devindu Malshan</span>
+                        <span class="block text-[10px] tracking-widest uppercase text-tealAccent font-medium">AI & Data Science Architect</span>
+                    </div>
+                </a>
+
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex items-center space-x-1">
+                    <a href="#about" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">About</a>
+                    <a href="#journey" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">Journey</a>
+                    <a href="#skills" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">Skills</a>
+                    <a href="#projects" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">Projects</a>
+                    <a href="#education" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">Credentials</a>
+                    <a href="#research" class="px-3 py-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">Research</a>
+                    <a href="#contact" class="ml-4 px-4 py-2 text-xs font-semibold tracking-wider uppercase bg-gradient-to-r from-primaryBlue to-tealAccent text-darkBg rounded-lg hover:shadow-lg hover:shadow-primaryBlue/20 transition-all transform hover:-translate-y-0.5">Contact Console</a>
+                </nav>
+
+                <!-- Mobile Nav Toggle -->
+                <button id="mobileNavToggle" class="md:hidden p-2 rounded-lg text-gray-400 hover:text-white hover:bg-white/5 transition-colors">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Nav Panel -->
+            <div id="mobileNavPanel" class="hidden md:hidden absolute top-16 left-0 w-full glass-panel border-b border-white/5 py-4 px-6 flex flex-col space-y-3 z-40 transition-all">
+                <a href="#about" class="mobile-nav-link text-gray-300 hover:text-white font-medium py-1">About</a>
+                <a href="#journey" class="mobile-nav-link text-gray-300 hover:text-white font-medium py-1">Journey</a>
+                <a href="#skills" class="mobile-nav-link text-gray-300 hover:text-white font-medium py-1">Skills</a>
+                <a href="#projects" class="mobile-nav-link text-gray-300 hover:text-white font-medium py-1">Projects</a>
+                <a href="#education" class="mobile-nav-link text-gray-300 hover:text-white font-medium py-1">Credentials</a>
+                <a href="#research" class="mobile-nav-link text-gray-300 hover:text-white font-medium py-1">Research</a>
+                <a href="#contact" class="mobile-nav-link inline-block text-center px-4 py-2.5 bg-gradient-to-r from-primaryBlue to-tealAccent text-darkBg rounded-lg font-bold text-sm tracking-wide">Contact Console</a>
+            </div>
+        </header>
+
+        <!-- MAIN PROFILE HERO SECTION -->
+        <section id="hero" class="min-h-screen flex items-center justify-center relative py-16 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10">
+                
+                <!-- Hero Left: Storytelling and Typing Subtext -->
+                <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
+                    <div class="inline-flex items-center space-x-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-xs text-primaryBlue font-medium tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-tealAccent animate-ping"></span>
+                        <span>Open for High-Impact Roles.</span>
+                    </div>
+
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight font-heading leading-none">
+                        Hi, I'm <span class="bg-clip-text text-transparent bg-gradient-to-r from-primaryBlue via-tealAccent to-accentPurple text-glow">Devindu Malshan</span>
+                    </h1>
+
+                    <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-gray-300 font-heading min-h-[40px]">
+                        I am an <span id="typingTarget" class="text-tealAccent border-r-2 border-tealAccent/60 pr-1 animate-pulse">AI Systems Engineer</span>
+                    </h2>
+
+                    <p class="text-base sm:text-lg text-gray-400 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                        I bridge the gap between architectural software structures, edge IoT hardware engineering, and advanced data science pipelines. Pursuing research-focused artificial intelligence deployment.
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#projects" class="w-full sm:w-auto px-8 py-3.5 bg-gradient-to-r from-primaryBlue to-electricBlue hover:from-tealAccent hover:to-primaryBlue text-darkBg font-bold text-sm tracking-wider uppercase rounded-xl transition-all hover:scale-105 hover:shadow-lg hover:shadow-primaryBlue/20 text-center">
+                            Explore Projects
+                        </a>
+                        <button onclick="downloadCV()" class="w-full sm:w-auto px-8 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-primaryBlue/30 text-white font-bold text-sm tracking-wider uppercase rounded-xl transition-all flex items-center justify-center gap-3">
+                            <i class="fa-solid fa-cloud-arrow-down text-lg"></i> Download Resume
+                        </button>
+                    </div>
+
+                    <!-- Micro Social Integration links -->
+                    <div class="flex items-center justify-center lg:justify-start space-x-6 pt-6 text-gray-400">
+                        <a href="https://www.linkedin.com/in/devindu-malshan-b88b242b9/" target="_blank" class="hover:text-primaryBlue transition-colors"><i class="fa-brands fa-linkedin text-2xl"></i></a>
+                        <a href="https://youtube.com/@harderbetterstronger00?si=gAMTLL0vmW-IJ3f1" target="_blank" class="hover:text-red-500 transition-colors"><i class="fa-brands fa-youtube text-2xl"></i></a>
+                        <a href="https://github.com/devindu22" target="_blank" class="hover:text-white transition-colors"><i class="fa-brands fa-github text-2xl"></i></a>
+                        <a href="mailto:devindu.m@outlook.com" class="hover:text-tealAccent transition-colors"><i class="fa-solid fa-envelope text-2xl"></i></a>
+                    </div>
+                </div>
+
+                <!-- Hero Right: Interactive Agent Console Simulator -->
+                <div class="lg:col-span-5 w-full">
+                    <div class="glass-panel rounded-2xl overflow-hidden border border-white/10 shadow-2xl relative">
+                        <!-- Top bar -->
+                        <div class="bg-darkBg/60 border-b border-white/5 px-4 py-3 flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
+                                <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
+                            </div>
+                            <span class="text-xs font-mono text-gray-400 tracking-widest uppercase">Agent-Devindu-GPT</span>
+                            <span class="w-3"></span>
+                        </div>
+
+                        <!-- Console Area -->
+                        <div class="p-6 font-mono text-xs space-y-4 h-[350px] overflow-y-auto" id="terminalOutput">
+                            <div class="text-gray-500">// Initialize candidate parameters...</div>
+                            <div class="text-green-400"><i class="fa-solid fa-check mr-2"></i>Target roles matches OpenAI / Anthropic operational tiers</div>
+                            <div class="text-gray-300">> Loading skills structure... Success.</div>
+                            <div class="text-gray-300">> Type queries below or try system-defined commands:</div>
+                            <div class="flex flex-wrap gap-2 pt-2">
+                                <button onclick="runTerminalCommand('/analyze')" class="px-2 py-1 rounded bg-white/5 hover:bg-primaryBlue/10 border border-white/10 hover:border-primaryBlue/30 text-primaryBlue font-semibold cursor-pointer">/analyze</button>
+                                <button onclick="runTerminalCommand('/mlops')" class="px-2 py-1 rounded bg-white/5 hover:bg-accentPurple/10 border border-white/10 hover:border-accentPurple/30 text-accentPurple font-semibold cursor-pointer">/mlops</button>
+                                <button onclick="runTerminalCommand('/iot')" class="px-2 py-1 rounded bg-white/5 hover:bg-tealAccent/10 border border-white/10 hover:border-tealAccent/30 text-tealAccent font-semibold cursor-pointer">/iot</button>
+                            </div>
+                        </div>
+
+                        <!-- Terminal Command Input Bar -->
+                        <div class="bg-darkBg/40 border-t border-white/5 p-3 flex items-center space-x-2">
+                            <span class="text-primaryBlue font-bold pl-2 font-mono">$</span>
+                            <input id="terminalInput" type="text" placeholder="Type a custom query (e.g. skills, stats)..." class="w-full bg-transparent border-none outline-none font-mono text-xs text-white placeholder-gray-600" onkeydown="handleTerminalKey(event)">
+                            <button onclick="submitTerminalQuery()" class="px-3 py-1 bg-primaryBlue text-darkBg rounded font-bold text-[10px] uppercase hover:bg-tealAccent transition-colors">Submit</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Scroll Down Prompt Indicator -->
+            <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex flex-col items-center space-y-2 pointer-events-none">
+                <span class="text-[10px] tracking-widest uppercase text-gray-500">Initiate Deep Scan</span>
+                <div class="w-5 h-8 border-2 border-white/20 rounded-full flex justify-center p-1">
+                    <div class="w-1.5 h-1.5 bg-primaryBlue rounded-full animate-bounce"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ABOUT ME SECTION -->
+        <section id="about" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative bg-darkBg/30">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- About Visual Left Card -->
+                <div class="lg:col-span-5 relative group">
+                    <div class="absolute -inset-1.5 bg-gradient-to-tr from-primaryBlue to-accentPurple rounded-2xl blur opacity-30 group-hover:opacity-50 transition duration-1000"></div>
+                    <div class="relative glass-panel rounded-2xl overflow-hidden border border-white/10">
+                        <div class="p-8 space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-primaryBlue to-tealAccent flex items-center justify-center font-heading font-bold text-white text-2xl shadow-lg">
+                                    DM
+                                </div>
+                                <div>
+                                    <h3 class="font-heading font-bold text-xl text-white">Devindu Malshan</h3>
+                                    <p class="text-xs text-tealAccent font-mono">Kalutara, Sri Lanka</p>
+                                </div>
+                            </div>
+                            
+                            <hr class="border-white/5">
+                            
+                            <div class="space-y-4 text-sm font-mono">
+                                <div class="flex justify-between"><span class="text-gray-500">Focus Arena:</span> <span class="text-white">AI / Data Science</span></div>
+                                <div class="flex justify-between"><span class="text-gray-500">Education:</span> <span class="text-white text-right">London Metro Univ (UK)</span></div>
+                                <div class="flex justify-between"><span class="text-gray-500">HND:</span> <span class="text-white">ESOFT Metro College</span></div>
+                                <div class="flex justify-between"><span class="text-gray-500">GCP Certifications:</span> <span class="text-tealAccent">MLOps Specialization</span></div>
+                            </div>
+
+                            <hr class="border-white/5">
+
+                            <div class="flex items-center justify-between text-xs font-mono text-gray-400">
+                                <span>SYSTEM STATUS</span>
+                                <span class="text-green-400 animate-pulse font-bold">● ACTIVE RESEARCHER</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- About Narrative Right -->
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="inline-flex items-center space-x-2">
+                        <span class="h-px w-8 bg-primaryBlue"></span>
+                        <span class="text-xs font-mono text-primaryBlue uppercase tracking-widest">Brand Narrative & Philosophy</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white tracking-tight leading-tight">
+                        Fusing Modern Software Architecture with Advanced <span class="bg-clip-text text-transparent bg-gradient-to-r from-primaryBlue to-tealAccent">Machine Learning Models</span>
+                    </h2>
+
+                    <p class="text-gray-300 leading-relaxed">
+                        I am a Software Engineering and Data Science student transitioning actively into deep technical artificial intelligence environments. With certifications awarded directly by Google Cloud, my technical workflows map structured full-lifecycle cloud architectures, hardware device programming, and advanced model fine-tuning.
+                    </p>
+
+                    <p class="text-gray-400 leading-relaxed text-sm">
+                        I specialize in creating clean, operational codes across multiple languages (Python, TypeScript, C++, C#) while managing complex networks, secure virtualization structures, and modern automated UI/UX flows. My mindset is rooted in continuous discovery, community impact, and research-driven software deployment.
+                    </p>
+
+                    <!-- Quote Block -->
+                    <div class="p-6 rounded-xl bg-white/5 border border-white/5 border-l-2 border-l-primaryBlue">
+                        <p class="italic text-gray-300 text-sm">
+                            "Devindu represents the upcoming generation of analytical developers—comfortable manipulating high-volume sensor streams on edge IoT microcontrollers, then scaling those datasets through Google Cloud MLOps pipelines."
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- THE JOURNEY ROADMAP TIMELINE -->
+        <section id="journey" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative">
+            <div class="max-w-7xl mx-auto space-y-16">
+                
+                <!-- Section Header -->
+                <div class="text-center space-y-4">
+                    <div class="inline-flex items-center space-x-2">
+                        <span class="h-px w-8 bg-accentPurple"></span>
+                        <span class="text-xs font-mono text-accentPurple uppercase tracking-widest">Evolution Timeline</span>
+                        <span class="h-px w-8 bg-accentPurple"></span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Continuous Innovation Pathway</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto text-sm">
+                        An intentional journey showing evolution from core logic and networking up through advanced telemetry pipelines into scalable deep learning development.
+                    </p>
+                </div>
+
+                <!-- Responsive Timeline Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
+                    
+                    <!-- Card 1 -->
+                    <div class="glass-panel p-6 rounded-2xl border-white/5 hover:border-primaryBlue/30 hover:shadow-lg hover:shadow-primaryBlue/5 transition-all relative">
+                        <div class="absolute -top-4 left-6 px-3 py-1 bg-primaryBlue text-darkBg font-mono text-xs font-bold rounded">2022 - 2023</div>
+                        <div class="h-1 bg-primaryBlue w-12 rounded mt-4 mb-4"></div>
+                        <h3 class="font-heading font-bold text-lg text-white">Full-Stack Core</h3>
+                        <p class="text-xs text-tealAccent font-mono mb-2">Rapid Mobile & Web Apps (IJSE)</p>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Established core algorithmic problem-solving. Mastered OOP languages (C#, Java) alongside modular responsive interface building.
+                        </p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div class="glass-panel p-6 rounded-2xl border-white/5 hover:border-tealAccent/30 hover:shadow-lg hover:shadow-tealAccent/5 transition-all relative">
+                        <div class="absolute -top-4 left-6 px-3 py-1 bg-tealAccent text-darkBg font-mono text-xs font-bold rounded">2023 - 2024</div>
+                        <div class="h-1 bg-tealAccent w-12 rounded mt-4 mb-4"></div>
+                        <h3 class="font-heading font-bold text-lg text-white">Networks & Cloud</h3>
+                        <p class="text-xs text-tealAccent font-mono mb-2">Level 3 IT Diploma & Google IT Support</p>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Secured enterprise-level configurations, VLAN topology segmenting, virtualized server infrastructures, and foundational hybrid cloud frameworks.
+                        </p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-panel p-6 rounded-2xl border-white/5 hover:border-accentPurple/30 hover:shadow-lg hover:shadow-accentPurple/5 transition-all relative">
+                        <div class="absolute -top-4 left-6 px-3 py-1 bg-accentPurple text-white font-mono text-xs font-bold rounded">2024 - 2026</div>
+                        <div class="h-1 bg-accentPurple w-12 rounded mt-4 mb-4"></div>
+                        <h3 class="font-heading font-bold text-lg text-white">Edge IoT & Systems</h3>
+                        <p class="text-xs text-accentPurple font-mono mb-2">Pearson Level 5 HND, ESOFT</p>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Pioneered complex hardware sensor integrations (HydroSentinel). Handled full lifecycle software blueprints (Figma, Balsamiq), and enterprise architecture.
+                        </p>
+                    </div>
+
+                    <!-- Card 4 -->
+                    <div class="glass-panel p-6 rounded-2xl border-white/5 hover:border-white/30 hover:shadow-lg transition-all relative">
+                        <div class="absolute -top-4 left-6 px-3 py-1 bg-white/20 text-white font-mono text-xs font-bold rounded">2026 - 2027</div>
+                        <div class="h-1 bg-white/40 w-12 rounded mt-4 mb-4 animate-pulse"></div>
+                        <h3 class="font-heading font-bold text-lg text-white">AI & Data Science</h3>
+                        <p class="text-xs text-gray-400 font-mono mb-2">Bachelor of Data Science, LMU UK</p>
+                        <p class="text-xs text-gray-400 leading-relaxed">
+                            Deep research focus. Translating real-time telemetry inputs into advanced machine learning algorithms, productionizing MLOps, and training deep learning nodes.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SKILLS MATRIX WITH ACTIVE PREVIEW -->
+        <section id="skills" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative bg-darkBg/20">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                
+                <!-- Skills Controls (Left) -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="inline-flex items-center space-x-2">
+                        <span class="h-px w-8 bg-tealAccent"></span>
+                        <span class="text-xs font-mono text-tealAccent uppercase tracking-widest">Core Capabilities</span>
+                    </div>
+
+                    <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Sought-after Engineering Capabilities</h2>
+                    
+                    <p class="text-gray-400 text-sm">
+                        I maintain an exceptionally broad but deep engineering stack. Click any category to filter and analyze specific proficiency indicators.
+                    </p>
+
+                    <!-- Nav Buttons -->
+                    <div class="flex flex-col space-y-2 pt-4">
+                        <button onclick="filterSkills('all')" class="skill-category-btn w-full px-4 py-3 rounded-xl border border-primaryBlue bg-primaryBlue/10 text-primaryBlue text-left font-semibold text-sm transition-all flex items-center justify-between">
+                            <span>All Platforms</span>
+                            <span class="text-xs">100%</span>
+                        </button>
+                        <button onclick="filterSkills('ai')" class="skill-category-btn w-full px-4 py-3 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 text-gray-300 text-left font-semibold text-sm transition-all flex items-center justify-between">
+                            <span>AI & Machine Learning</span>
+                            <span class="text-xs font-mono text-accentPurple">Production Core</span>
+                        </button>
+                        <button onclick="filterSkills('languages')" class="skill-category-btn w-full px-4 py-3 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 text-gray-300 text-left font-semibold text-sm transition-all flex items-center justify-between">
+                            <span>Core Languages</span>
+                            <span class="text-xs font-mono text-primaryBlue">Full-Stack Stack</span>
+                        </button>
+                        <button onclick="filterSkills('iot')" class="skill-category-btn w-full px-4 py-3 rounded-xl border border-white/5 bg-white/5 hover:bg-white/10 text-gray-300 text-left font-semibold text-sm transition-all flex items-center justify-between">
+                            <span>IoT & Enterprise Systems</span>
+                            <span class="text-xs font-mono text-tealAccent">Edge Dev</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Skills Interactive Grid (Right) -->
+                <div class="lg:col-span-8 grid grid-cols-1 sm:grid-cols-2 gap-4" id="skillsGrid">
+                    
+                    <!-- Skill Item -->
+                    <div class="skill-item glass-panel p-5 rounded-xl border-white/5" data-category="languages">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-heading font-bold text-white text-sm">Python, C++ & TypeScript</span>
+                            <i class="fa-brands fa-python text-lg text-primaryBlue"></i>
+                        </div>
+                        <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-primaryBlue h-full rounded-full" style="width: 90%"></div>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 text-[10px] text-gray-500 font-mono">
+                            <span>MODEL DEVELOPMENT, ALGORITHMS</span>
+                            <span class="text-primaryBlue">90%</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Item -->
+                    <div class="skill-item glass-panel p-5 rounded-xl border-white/5" data-category="ai">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-heading font-bold text-white text-sm">Google Cloud Production MLOps</span>
+                            <i class="fa-solid fa-cloud text-lg text-accentPurple"></i>
+                        </div>
+                        <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-accentPurple h-full rounded-full" style="width: 85%"></div>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 text-[10px] text-gray-500 font-mono">
+                            <span>TENSORFLOW, PIPELINES, GCP SERVICES</span>
+                            <span class="text-accentPurple">85%</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Item -->
+                    <div class="skill-item glass-panel p-5 rounded-xl border-white/5" data-category="languages">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-heading font-bold text-white text-sm">TypeScript & React Architecture</span>
+                            <i class="fa-brands fa-js text-lg text-primaryBlue"></i>
+                        </div>
+                        <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-primaryBlue h-full rounded-full" style="width: 85%"></div>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 text-[10px] text-gray-500 font-mono">
+                            <span>MODULAR REUSABLE WEB COMPONENTS</span>
+                            <span class="text-primaryBlue">85%</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Item -->
+                    <div class="skill-item glass-panel p-5 rounded-xl border-white/5" data-category="iot">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-heading font-bold text-white text-sm">Edge Computing & IoT Telemetry</span>
+                            <i class="fa-solid fa-microchip text-lg text-tealAccent"></i>
+                        </div>
+                        <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-tealAccent h-full rounded-full" style="width: 95%"></div>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 text-[10px] text-gray-500 font-mono">
+                            <span>ESP8266, MQTT PROTOCOLS, NODE-RED</span>
+                            <span class="text-tealAccent">95%</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Item -->
+                    <div class="skill-item glass-panel p-5 rounded-xl border-white/5" data-category="iot">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-heading font-bold text-white text-sm">Cisco Enterprise Networking</span>
+                            <i class="fa-solid fa-network-wired text-lg text-tealAccent"></i>
+                        </div>
+                        <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-tealAccent h-full rounded-full" style="width: 80%"></div>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 text-[10px] text-gray-500 font-mono">
+                            <span>VLAN, VLSM/CIDR ROUTING CONFIG</span>
+                            <span class="text-tealAccent">80%</span>
+                        </div>
+                    </div>
+
+                    <!-- Skill Item -->
+                    <div class="skill-item glass-panel p-5 rounded-xl border-white/5" data-category="ai">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="font-heading font-bold text-white text-sm">Data Science & Analytics</span>
+                            <i class="fa-solid fa-chart-line text-lg text-accentPurple"></i>
+                        </div>
+                        <div class="w-full bg-white/5 h-1.5 rounded-full overflow-hidden">
+                            <div class="bg-accentPurple h-full rounded-full" style="width: 88%"></div>
+                        </div>
+                        <div class="flex justify-between items-center mt-2 text-[10px] text-gray-500 font-mono">
+                            <span>NUMPY, PANDAS, MS POWER BI, AWS</span>
+                            <span class="text-accentPurple">88%</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURED PROJECTS PORTFOLIO -->
+        <section id="projects" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative">
+            <div class="max-w-7xl mx-auto space-y-16">
+                
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center space-x-2">
+                            <span class="h-px w-8 bg-primaryBlue"></span>
+                            <span class="text-xs font-mono text-primaryBlue uppercase tracking-widest">Case-Study Portfolio</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Engineered Systems & Software Architectures</h2>
+                    </div>
+                    <span class="text-xs text-gray-500 font-mono hidden md:block">SELECT A CARD TO ACCESS SYSTEM FLOW DIAGRAMS & CASE STUDY DATA</span>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    
+                    <!-- Project 1: NEXSPARK '25 -->
+                    <div onclick="openCaseStudy('nexspark')" class="glass-panel glass-panel-hover rounded-2xl overflow-hidden cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <!-- Header overlay icon -->
+                            <div class="p-6 bg-gradient-to-br from-primaryBlue/10 to-transparent flex items-center justify-between border-b border-white/5">
+                                <span class="text-xs text-primaryBlue font-mono uppercase tracking-widest font-bold">Cybersecurity & Leadership</span>
+                                <i class="fa-solid fa-shield text-lg text-primaryBlue"></i>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div class="flex flex-wrap gap-1.5 mb-2">
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">Leadership</span>
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Security</span>
+                                </div>
+                                <h3 class="font-heading font-bold text-xl text-white group-hover:text-primaryBlue transition-colors">NEXSPARK '25</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed line-clamp-3">
+                                    Successfully launched and led a high-impact cybersecurity and fundamental skills training event at Gurulugomi Maha Vidyalaya. Designed to accelerate local digital safety and technology alignment.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-white/5 flex flex-wrap gap-2">
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Cybersecurity</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Leadership</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Event Planning</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: HydroSentinel -->
+                    <div onclick="openCaseStudy('hydrosentinel')" class="glass-panel glass-panel-hover rounded-2xl overflow-hidden cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="p-6 bg-gradient-to-br from-tealAccent/10 to-transparent flex items-center justify-between border-b border-white/5">
+                                <span class="text-xs text-tealAccent font-mono uppercase tracking-widest font-bold">IoT & Martian Agriculture</span>
+                                <i class="fa-solid fa-seedling text-lg text-tealAccent"></i>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div class="flex flex-wrap gap-1.5 mb-2">
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20">IoT Mesh</span>
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Telemetry</span>
+                                </div>
+                                <h3 class="font-heading font-bold text-xl text-white group-hover:text-tealAccent transition-colors">HydroSentinel Monitoring</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed line-clamp-3">
+                                    Advanced IoT soil moisture monitoring system built for extreme settings like Martian agricultural simulations. Automatically regulates water pumps via real-time telemetry inputs.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-white/5 flex flex-wrap gap-2">
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">ESP8266</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Node-RED</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Blynk</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">MQTT</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Lanka E-Loop -->
+                    <div onclick="openCaseStudy('eloop')" class="glass-panel glass-panel-hover rounded-2xl overflow-hidden cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="p-6 bg-gradient-to-br from-accentPurple/10 to-transparent flex items-center justify-between border-b border-white/5">
+                                <span class="text-xs text-accentPurple font-mono uppercase tracking-widest font-bold">Enterprise Software ERP</span>
+                                <i class="fa-solid fa-industry text-lg text-accentPurple"></i>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div class="flex flex-wrap gap-1.5 mb-2">
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">Full-Stack</span>
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-pink-500/10 text-pink-400 border border-pink-500/20">Enterprise</span>
+                                </div>
+                                <h3 class="font-heading font-bold text-xl text-white group-hover:text-accentPurple transition-colors">Lanka E-Loop Innovations</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed line-clamp-3">
+                                    Production-ready Operational Control Platform for sustainable upcycled manufacturing plants. Integrates high-volume tracking databases and operational workflows.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-white/5 flex flex-wrap gap-2">
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">React</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">TypeScript</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Full-Stack ERP</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 4: RemoMed Telemedicine -->
+                    <div onclick="openCaseStudy('remomed')" class="glass-panel glass-panel-hover rounded-2xl overflow-hidden cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="p-6 bg-gradient-to-br from-primaryBlue/10 to-transparent flex items-center justify-between border-b border-white/5">
+                                <span class="text-xs text-primaryBlue font-mono uppercase tracking-widest font-bold">Secure Telehealth System</span>
+                                <i class="fa-solid fa-hospital-user text-lg text-primaryBlue"></i>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div class="flex flex-wrap gap-1.5 mb-2">
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20">UX / UI</span>
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Secure</span>
+                                </div>
+                                <h3 class="font-heading font-bold text-xl text-white group-hover:text-primaryBlue transition-colors">RemoMed Telehealth Portal</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed line-clamp-3">
+                                    Highly modular and secure clinical telemedicine layout. Modernizes physician-patient communication metrics with real-time responsive grids.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-white/5 flex flex-wrap gap-2">
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Tailwind CSS</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">HTML5</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Responsive Grid</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 5: Urban Nexus -->
+                    <div onclick="openCaseStudy('urbannexus')" class="glass-panel glass-panel-hover rounded-2xl overflow-hidden cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="p-6 bg-gradient-to-br from-tealAccent/10 to-transparent flex items-center justify-between border-b border-white/5">
+                                <span class="text-xs text-tealAccent font-mono uppercase tracking-widest font-bold">Smart City Platform</span>
+                                <i class="fa-solid fa-city text-lg text-tealAccent"></i>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div class="flex flex-wrap gap-1.5 mb-2">
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-teal-500/10 text-teal-400 border border-teal-500/20">Urban Planning</span>
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">Balsamiq</span>
+                                </div>
+                                <h3 class="font-heading font-bold text-xl text-white group-hover:text-tealAccent transition-colors">Urban Nexus System</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed line-clamp-3">
+                                    Comprehensive transit routing, energy grid monitoring, and localized emergency services interface. Advanced blueprints designed across extensive UX paradigms.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-white/5 flex flex-wrap gap-2">
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Figma</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Balsamiq</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">UX Design Systems</span>
+                        </div>
+                    </div>
+
+                    <!-- Project 6: Eco Tourism -->
+                    <div onclick="openCaseStudy('ecotourism')" class="glass-panel glass-panel-hover rounded-2xl overflow-hidden cursor-pointer group flex flex-col justify-between">
+                        <div>
+                            <div class="p-6 bg-gradient-to-br from-accentPurple/10 to-transparent flex items-center justify-between border-b border-white/5">
+                                <span class="text-xs text-accentPurple font-mono uppercase tracking-widest font-bold">Analytics & Visualization</span>
+                                <i class="fa-solid fa-earth-americas text-lg text-accentPurple"></i>
+                            </div>
+                            <div class="p-6 space-y-4">
+                                <div class="flex flex-wrap gap-1.5 mb-2">
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-purple-500/10 text-purple-400 border border-purple-500/20">Analytics</span>
+                                    <span class="text-[9px] uppercase tracking-wider font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">Charts</span>
+                                </div>
+                                <h3 class="font-heading font-bold text-xl text-white group-hover:text-accentPurple transition-colors">Eco-Tourism Platform</h3>
+                                <p class="text-gray-400 text-xs leading-relaxed line-clamp-3">
+                                    Interactive metrics portal showcasing travel behavior analytics, using customized data visualization libraries to model sustainable tourism footprint.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="p-6 border-t border-white/5 flex flex-wrap gap-2">
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Tailwind CSS</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Chart.js</span>
+                            <span class="text-[10px] font-mono px-2 py-1 rounded tech-badge">Vanilla JS</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- PREMIUM DEEP CASE STUDY MODAL -->
+        <div id="caseStudyModal" class="fixed inset-0 z-50 overflow-y-auto hidden">
+            <!-- Modal Backdrop Blur -->
+            <div class="fixed inset-0 bg-darkBg/90 backdrop-blur-md" onclick="closeCaseStudy()"></div>
+            
+            <!-- Modal Body Content -->
+            <div class="relative min-h-screen flex items-center justify-center p-4 sm:p-6 lg:p-8">
+                <div class="relative glass-panel rounded-2xl w-full max-w-4xl overflow-hidden border border-white/10 shadow-2xl">
+                    
+                    <!-- Modal Header -->
+                    <div class="p-6 border-b border-white/5 bg-darkBg/60 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <div id="modalLogoContainer" class="w-10 h-10 rounded-xl bg-primaryBlue/20 flex items-center justify-center text-primaryBlue text-lg"></div>
+                            <div>
+                                <h3 id="modalTitle" class="font-heading font-bold text-xl text-white">Project Case Study</h3>
+                                <p id="modalCategory" class="text-xs text-gray-500 font-mono">Platform Telemetry Systems</p>
+                            </div>
+                        </div>
+                        <button onclick="closeCaseStudy()" class="p-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+                            <i class="fa-solid fa-xmark text-xl"></i>
+                        </button>
+                    </div>
+
+                    <!-- Modal Interactive Details Container -->
+                    <div class="p-6 sm:p-8 space-y-6 max-h-[70vh] overflow-y-auto" id="modalScrollArea">
+                        
+                        <!-- Core Architecture & System Layout -->
+                        <div class="space-y-3">
+                            <h4 class="font-heading font-bold text-sm text-tealAccent uppercase tracking-widest">Platform System Flow Diagram</h4>
+                            <div id="systemFlow" class="p-6 rounded-xl bg-darkBg/60 border border-white/5 font-mono text-[11px] leading-relaxed text-gray-400 overflow-x-auto whitespace-pre">
+                                <!-- Generated Dynamic System Flow Diagram -->
+                            </div>
+                        </div>
+
+                        <!-- Project Case Study Textual Content -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 pt-4">
+                            <div class="space-y-4">
+                                <h4 class="font-heading font-bold text-sm text-primaryBlue uppercase tracking-widest">Architectural Objectives</h4>
+                                <p id="modalObjective" class="text-gray-300 text-sm leading-relaxed"></p>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="font-heading font-bold text-sm text-accentPurple uppercase tracking-widest">Engineering Implementation</h4>
+                                <p id="modalImplementation" class="text-gray-300 text-sm leading-relaxed"></p>
+                            </div>
+                        </div>
+
+                        <hr class="border-white/5">
+
+                        <!-- Lessons and Futuristic Pipeline Future Upgrades -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            <div class="space-y-4">
+                                <h4 class="font-heading font-bold text-sm text-gray-400 uppercase tracking-widest">Lessons Learned</h4>
+                                <p id="modalLessons" class="text-gray-400 text-xs leading-relaxed"></p>
+                            </div>
+                            <div class="space-y-4">
+                                <h4 class="font-heading font-bold text-sm text-tealAccent uppercase tracking-widest">Future Research Integrations</h4>
+                                <p id="modalFuture" class="text-gray-400 text-xs leading-relaxed"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <!-- EDUCATION & PREMIUM LICENSES / CERTIFICATIONS -->
+        <section id="education" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative bg-darkBg/30">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+                
+                <!-- Education (Left) -->
+                <div class="lg:col-span-6 space-y-12">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center space-x-2">
+                            <span class="h-px w-8 bg-primaryBlue"></span>
+                            <span class="text-xs font-mono text-primaryBlue uppercase tracking-widest">Academic Base</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Education & Pedigree</h2>
+                    </div>
+
+                    <div class="space-y-8">
+                        
+                        <!-- LMU Course -->
+                        <div class="relative pl-6 border-l-2 border-accentPurple/20 space-y-2">
+                            <span class="absolute top-1 left-[-5px] w-2 h-2 rounded-full bg-accentPurple"></span>
+                            <span class="text-xs font-mono text-accentPurple">Sep 2026 - Sep 2027</span>
+                            <h3 class="font-heading font-bold text-xl text-white">Bachelor of Science (Hons) in Data Science (Rdg)</h3>
+                            <p class="text-sm text-gray-400">London Metropolitan University (UK)</p>
+                        </div>
+
+                        <!-- HND Course -->
+                        <div class="relative pl-6 border-l-2 border-tealAccent/20 space-y-2">
+                            <span class="absolute top-1 left-[-5px] w-2 h-2 rounded-full bg-tealAccent"></span>
+                            <span class="text-xs font-mono text-tealAccent">Sep 2024 - Mar 2026</span>
+                            <h3 class="font-heading font-bold text-xl text-white">Pearson BTEC Level 5 HND in Computing</h3>
+                            <p class="text-sm text-gray-400">ESOFT Metro College & Pearson (UK)</p>
+                        </div>
+
+                        <!-- Diploma Course -->
+                        <div class="relative pl-6 border-l-2 border-tealAccent/20 space-y-2">
+                            <span class="absolute top-1 left-[-5px] w-2 h-2 rounded-full bg-tealAccent"></span>
+                            <span class="text-xs font-mono text-tealAccent">Nov 2023 - Nov 2024</span>
+                            <h3 class="font-heading font-bold text-xl text-white">Level 3 Diploma in Information Technology</h3>
+                            <p class="text-sm text-gray-400">ESOFT Metro College & Pearson (UK)</p>
+                        </div>
+
+                        <!-- IJSE Course -->
+                        <div class="relative pl-6 border-l-2 border-tealAccent/20 space-y-2">
+                            <span class="absolute top-1 left-[-5px] w-2 h-2 rounded-full bg-tealAccent"></span>
+                            <span class="text-xs font-mono text-tealAccent">Sep 2022 - Apr 2023</span>
+                            <h3 class="font-heading font-bold text-xl text-white">Rapid Mobile & Web Application Development</h3>
+                            <p class="text-sm text-gray-400">Institute of Java & Software Engineering (IJSE)</p>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Google Certifications (Right) -->
+                <div class="lg:col-span-6 space-y-8">
+                    <h3 class="font-heading font-bold text-2xl text-white flex items-center gap-3">
+                        <i class="fa-brands fa-google text-primaryBlue"></i> Specialized Google Cloud Certifications
+                    </h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        
+                        <!-- Cert 1 -->
+                        <div class="glass-panel p-5 rounded-xl border-white/5 space-y-3 hover:border-primaryBlue/20 transition-colors">
+                            <div class="w-8 h-8 rounded bg-primaryBlue/10 flex items-center justify-center text-primaryBlue text-xs font-bold font-mono">ML</div>
+                            <h4 class="font-heading font-bold text-sm text-white">Machine Learning Specialization</h4>
+                            <p class="text-[10px] text-gray-500 font-mono">GOOGLE CLOUD • MAR 2024</p>
+                        </div>
+
+                        <!-- Cert 2 -->
+                        <div class="glass-panel p-5 rounded-xl border-white/5 space-y-3 hover:border-accentPurple/20 transition-colors">
+                            <div class="w-8 h-8 rounded bg-accentPurple/10 flex items-center justify-center text-accentPurple text-xs font-bold font-mono">OP</div>
+                            <h4 class="font-heading font-bold text-sm text-white">MLOps Operations Specialty</h4>
+                            <p class="text-[10px] text-gray-500 font-mono">GOOGLE CLOUD • MAR 2024</p>
+                        </div>
+
+                        <!-- Cert 3 -->
+                        <div class="glass-panel p-5 rounded-xl border-white/5 space-y-3 hover:border-tealAccent/20 transition-colors">
+                            <div class="w-8 h-8 rounded bg-tealAccent/10 flex items-center justify-center text-tealAccent text-xs font-bold font-mono">PS</div>
+                            <h4 class="font-heading font-bold text-sm text-white">Production ML Systems</h4>
+                            <p class="text-[10px] text-gray-500 font-mono">GOOGLE CLOUD • MAR 2024</p>
+                        </div>
+
+                        <!-- Cert 4 -->
+                        <div class="glass-panel p-5 rounded-xl border-white/5 space-y-3 hover:border-primaryBlue/20 transition-colors">
+                            <div class="w-8 h-8 rounded bg-primaryBlue/10 flex items-center justify-center text-primaryBlue text-xs font-bold font-mono">BD</div>
+                            <h4 class="font-heading font-bold text-sm text-white">Big Data & ML Fundamentals</h4>
+                            <p class="text-[10px] text-gray-500 font-mono">GOOGLE CLOUD • MAR 2024</p>
+                        </div>
+
+                        <!-- Cert 5 -->
+                        <div class="glass-panel p-5 rounded-xl border-white/5 space-y-3 hover:border-primaryBlue/20 transition-colors">
+                            <div class="w-8 h-8 rounded bg-primaryBlue/10 flex items-center justify-center text-primaryBlue text-xs font-bold font-mono">BD</div>
+                            <h4 class="font-heading font-bold text-sm text-white">IT Support Specialization</h4>
+                            <p class="text-[10px] text-gray-500 font-mono">GOOGLE • JUL 2022</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- RESEARCH ARENA & MOCK TECHNICAL ARTICLES -->
+        <section id="research" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative">
+            <div class="max-w-7xl mx-auto space-y-16">
+                
+                <!-- Section Header -->
+                <div class="text-center space-y-4">
+                    <div class="inline-flex items-center space-x-2">
+                        <span class="h-px w-8 bg-tealAccent"></span>
+                        <span class="text-xs font-mono text-tealAccent uppercase tracking-widest">Future Concepts</span>
+                        <span class="h-px w-8 bg-tealAccent"></span>
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Artificial Intelligence Research Area</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto text-sm">
+                        Original system perspectives, conceptual papers, and deep exploration into robust technological systems.
+                    </p>
+                </div>
+
+                <!-- Articles Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <!-- Article 1 -->
+                    <div class="glass-panel p-6 rounded-2xl border-white/5 hover:border-primaryBlue/20 transition-all flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <span class="text-[10px] font-mono text-primaryBlue uppercase tracking-widest">RESEARCH PAPER PROTOTYPE</span>
+                            <h3 class="font-heading font-bold text-lg text-white">MLOps Frameworks for Hybrid Telemetry Edge Networks</h3>
+                            <p class="text-xs text-gray-400 leading-relaxed">
+                                Modeling continuous feature engineering optimization across decentralized edge hardware platforms using automated model registry configurations.
+                            </p>
+                        </div>
+                        <a href="#about" class="mt-6 text-xs text-primaryBlue hover:text-white font-semibold flex items-center gap-2">
+                            Request Pre-print <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <!-- Article 2 -->
+                    <div class="glass-panel p-6 rounded-2xl border-white/5 hover:border-accentPurple/20 transition-all flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <span class="text-[10px] font-mono text-accentPurple uppercase tracking-widest">CONCEPTUAL NOTE</span>
+                            <h3 class="font-heading font-bold text-lg text-white">IoT Moisture Swarms in Martian Controlled Agriculture</h3>
+                            <p class="text-xs text-gray-400 leading-relaxed">
+                                Designing fault-tolerant multi-sensor meshes built on ESP8266 architectures, routing automated pump networks inside high-stress simulation frameworks.
+                            </p>
+                        </div>
+                        <a href="#about" class="mt-6 text-xs text-accentPurple hover:text-white font-semibold flex items-center gap-2">
+                            Request Pre-print <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                    <!-- Article 3 -->
+                    <div class="glass-panel p-6 rounded-2xl border-white/5 hover:border-tealAccent/20 transition-all flex flex-col justify-between">
+                        <div class="space-y-4">
+                            <span class="text-[10px] font-mono text-tealAccent uppercase tracking-widest">PRACTICAL REASONING</span>
+                            <h3 class="font-heading font-bold text-lg text-white">Responsible Artificial Intelligence & Governance</h3>
+                            <p class="text-xs text-gray-400 leading-relaxed">
+                                Addressing logical security frameworks and validation policies when deploying continuous predictive models inside public citizen utility databases.
+                            </p>
+                        </div>
+                        <a href="#about" class="mt-6 text-xs text-tealAccent hover:text-white font-semibold flex items-center gap-2">
+                            Request Pre-print <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+
+        <!-- CONTACT CONSOLE -->
+        <section id="contact" class="py-24 px-4 sm:px-6 lg:px-8 border-t border-white/5 relative bg-darkBg/20">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
+                
+                <!-- Contact info (Left) -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div class="space-y-4">
+                        <div class="inline-flex items-center space-x-2">
+                            <span class="h-px w-8 bg-primaryBlue"></span>
+                            <span class="text-xs font-mono text-primaryBlue uppercase tracking-widest">Connect Matrix</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold font-heading text-white">Initiate Secure Connection</h2>
+                    </div>
+
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        I am actively engaging with top-tier product teams, machine learning research laboratories, and leading full-stack startups. Use this interface to initialize communication.
+                    </p>
+
+                    <div class="space-y-4 text-sm font-mono text-gray-300">
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-location-dot text-primaryBlue text-lg w-6"></i>
+                            <span>Kalutara South, Sri Lanka</span>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-envelope text-tealAccent text-lg w-6"></i>
+                            <a href="mailto:devindu.m@outlook.com" class="hover:text-tealAccent">devindu.m@outlook.com</a>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <i class="fa-solid fa-phone text-accentPurple text-lg w-6"></i>
+                            <span>+94 78 23 50 462</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contact Form Console (Right) -->
+                <div class="lg:col-span-7">
+                    <div class="glass-panel p-8 rounded-2xl border-white/5">
+                        <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-6">
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-mono text-gray-400 uppercase">Your Identity (Name)</label>
+                                    <input type="text" id="formName" name="name" required placeholder="Dr. Evelyn Wright" class="w-full px-4 py-3 rounded-xl bg-darkBg/60 border border-white/10 text-white placeholder-gray-600 focus:border-primaryBlue focus:ring-1 focus:ring-primaryBlue outline-none text-sm transition-all">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-xs font-mono text-gray-400 uppercase">Target Address (Email)</label>
+                                    <input type="email" id="formEmail" name="email" required placeholder="evelyn@openai.com" class="w-full px-4 py-3 rounded-xl bg-darkBg/60 border border-white/10 text-white placeholder-gray-600 focus:border-primaryBlue focus:ring-1 focus:ring-primaryBlue outline-none text-sm transition-all">
+                                </div>
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-xs font-mono text-gray-400 uppercase">System Subject</label>
+                                <input type="text" id="formSubject" name="subject" required placeholder="Machine Learning Engineering Alignment" class="w-full px-4 py-3 rounded-xl bg-darkBg/60 border border-white/10 text-white placeholder-gray-600 focus:border-primaryBlue focus:ring-1 focus:ring-primaryBlue outline-none text-sm transition-all">
+                            </div>
+
+                            <div class="space-y-2">
+                                <label class="block text-xs font-mono text-gray-400 uppercase">Message Telemetry</label>
+                                <textarea id="formMessage" name="message" rows="5" required placeholder="Details on your upcoming AI research and open-source models..." class="w-full px-4 py-3 rounded-xl bg-darkBg/60 border border-white/10 text-white placeholder-gray-600 focus:border-primaryBlue focus:ring-1 focus:ring-primaryBlue outline-none text-sm transition-all"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 bg-white/5 hover:bg-primaryBlue/10 border border-white/10 hover:border-primaryBlue/30 text-primaryBlue hover:text-white font-bold text-xs uppercase tracking-widest rounded-xl transition-all duration-300 flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-paper-plane"></i>
+                                <span id="submitBtnText">Dispatch Secure Signal</span>
+                            </button>
+
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- FOOTER BRANDING -->
+        <footer class="mt-auto py-12 px-4 sm:px-6 lg:px-8 border-t border-white/5 bg-darkBg/80 text-center space-y-6">
+            <div class="flex items-center justify-center space-x-3">
+                <span class="font-heading font-bold text-white text-lg">DM</span>
+                <span class="text-gray-600">|</span>
+                <span class="text-xs text-gray-400 font-mono tracking-widest uppercase">Devindu Malshan</span>
+            </div>
+            
+            <p class="text-xs text-gray-500 max-w-md mx-auto leading-relaxed">
+                Designed to surpass the visual standards of Awwwards, OpenAI, and Linear architectures. Engineered completely with absolute code execution.
+            </p>
+
+            <p class="text-[10px] text-gray-600 font-mono pt-4">
+                &copy; 2026 Devindu Malshan. All systems operational.
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- MAIN INTERACTIVE SCRIPTS -->
+    <script>
+        // --- Web3Forms API Integration Key Setup ---
+        const WEB3FORMS_ACCESS_KEY = "6f236cd7-259d-4fc9-bfe7-ec46c88b2f2a"; 
+
+        // 1. NEURAL NETWORK CANVAS ANIMATION (Vanilla JS Physics)
+        const canvas = document.getElementById('neuralCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        const dots = [];
+        const numDots = Math.min(65, Math.floor((width * height) / 25000)); // Dynamic node counts for performance
+        const maxDistance = 140;
+
+        class Dot {
+            constructor() {
+                this.x = Math.random() * width;
+                this.y = Math.random() * height;
+                this.vx = (Math.random() - 0.5) * 0.5;
+                this.vy = (Math.random() - 0.5) * 0.5;
+                this.radius = Math.random() * 2 + 1.5;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // Boundary collision check
+                if (this.x < 0 || this.x > width) this.vx *= -1;
+                if (this.y < 0 || this.y > height) this.vy *= -1;
+            }
+
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(14, 165, 233, 0.4)';
+                ctx.fill();
+            }
+        }
+
+        // Initialize particles
+        for (let i = 0; i < numDots; i++) {
+            dots.push(new Dot());
+        }
+
+        // Interactive mouse connection node tracking
+        let mouseX = null;
+        let mouseY = null;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+        window.addEventListener('mouseleave', () => {
+            mouseX = null;
+            mouseY = null;
+        });
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+
+            // Draw neural paths and connect matching nodes
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].update();
+                dots[i].draw();
+
+                for (let j = i + 1; j < dots.length; j++) {
+                    const dist = Math.hypot(dots[i].x - dots[j].x, dots[i].y - dots[j].y);
+                    if (dist < maxDistance) {
+                        ctx.beginPath();
+                        ctx.moveTo(dots[i].x, dots[i].y);
+                        ctx.lineTo(dots[j].x, dots[j].y);
+                        const opacity = (1 - dist / maxDistance) * 0.15;
+                        ctx.strokeStyle = `rgba(14, 165, 233, ${opacity})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.stroke();
+                    }
+                }
+
+                // Interactive mouse node line connection
+                if (mouseX && mouseY) {
+                    const mouseDist = Math.hypot(dots[i].x - mouseX, dots[i].y - mouseY);
+                    if (mouseDist < maxDistance + 50) {
+                        ctx.beginPath();
+                        ctx.moveTo(dots[i].x, dots[i].y);
+                        ctx.lineTo(mouseX, mouseY);
+                        const opacity = (1 - mouseDist / (maxDistance + 50)) * 0.25;
+                        ctx.strokeStyle = `rgba(6, 182, 212, ${opacity})`;
+                        ctx.lineWidth = 1;
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        // Start animation after loading is ready
+        window.onload = function() {
+            animate();
+        }
+
+        // 2. HERO TYPING SUBTEXT SYSTEM
+        const roles = [
+            "Software Architect", 
+            "Data Science Student", 
+            "Machine Learning Enthusiast", 
+            "Cloud Systems Practitioner", 
+            "IoT Swarm Developer", 
+            "Research-Oriented Builder"
+        ];
+        let roleIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingTarget = document.getElementById('typingTarget');
+
+        function type() {
+            const currentRole = roles[roleIndex];
+            if (isDeleting) {
+                typingTarget.textContent = currentRole.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingTarget.textContent = currentRole.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let delay = isDeleting ? 40 : 80;
+
+            if (!isDeleting && charIndex === currentRole.length) {
+                delay = 2000; // Hold full role visual
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                roleIndex = (roleIndex + 1) % roles.length;
+                delay = 500;
+            }
+
+            setTimeout(type, delay);
+        }
+        setTimeout(type, 1000);
+
+        // 3. INTERACTIVE AGENT TERMINAL ENGINE
+        const terminalOutput = document.getElementById('terminalOutput');
+        const terminalInput = document.getElementById('terminalInput');
+
+        const terminalDatabase = {
+            '/analyze': `<div class="text-tealAccent">// Candidate Qualification Mapping Grid</div>
+<div class="text-gray-400">Comparing Devindu Malshan with core team expectations:</div>
+<div class="text-white">- Hardware/Sensors: Exceptional (Created Martian Irrigation telemetries)</div>
+<div class="text-white">- MLOps / GCP: Excellent (Production ML, cloud pipelines verified)</div>
+<div class="text-white">- Algorithms & Flowcharts: High structural capability</div>
+<div class="text-green-400">> STATUS: HIGH MATCH RECOMMENDATION FOR AI LAB DEVELOPMENT TEAMS.</div>`,
+            '/mlops': `<div class="text-accentPurple">// Querying Cloud MLOps & Architecture Models</div>
+<div class="text-gray-400">Production ML Systems & Specializations:</div>
+<div class="text-white">- Pipelines: Feature engineering arrays with TensorFlow / Pandas</div>
+<div class="text-white">- Cloud Engine: Google Cloud Platform (GCP) certified</div>
+<div class="text-white">- Virtualization: Multi-node VMware networks & server infrastructure</div>
+<div class="text-accentPurple">> STATUS: Certified & deploy-ready pipeline engineer.</div>`,
+            '/iot': `<div class="text-tealAccent">// Querying Edge Hardware Telemetry Architectures</div>
+<div class="text-gray-400">Microcontroller & Sensor Network Blueprints:</div>
+<div class="text-white">- ESP8266 & Arduino node meshes</div>
+<div class="text-white">- MQTT and Node-RED structural backbones</div>
+<div class="text-white">- Systems engineering (Lanka E-Loop & HydroSentinel systems)</div>
+<div class="text-tealAccent">> STATUS: Direct capacity to build hardware telemetry nodes.</div>`,
+            'skills': `<div class="text-white">Core Languages: Python, TypeScript, C++, C#, Java</div>
+<div class="text-white">Frameworks: React, Next.js, Node.js, TensorFlow, Scikit-learn</div>
+<div class="text-white">Infrastructure: GCP, AWS, Cisco Packet Tracer, VMware</div>`,
+            'stats': `<div class="text-tealAccent">// GitHub Platform Activity Metrics (Live Mock)</div>
+<div class="text-white">- Commits: 840+ (Current Development Target Year)</div>
+<div class="text-white">- Main Languages: TypeScript, Python, HTML5</div>
+<div class="text-white">- Continuous streak activity: Highly Consistent</div>`
+        };
+
+        function runTerminalCommand(cmd) {
+            const trimmed = cmd.trim().toLowerCase();
+            let response = `<div class="text-red-400">Error: System Command '${cmd}' not mapped. Try /analyze, /mlops, or /iot.</div>`;
+            
+            if (terminalDatabase[trimmed]) {
+                response = terminalDatabase[trimmed];
+            } else if (trimmed === 'clear') {
+                terminalOutput.innerHTML = '';
+                return;
+            }
+
+            const promptLine = `<div class="text-gray-500 mt-4">$ ${cmd}</div>`;
+            terminalOutput.innerHTML += promptLine + response;
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+
+        function handleTerminalKey(event) {
+            if (event.key === 'Enter') {
+                submitTerminalQuery();
+            }
+        }
+
+        function submitTerminalQuery() {
+            const query = terminalInput.value;
+            if (!query) return;
+            runTerminalCommand(query);
+            terminalInput.value = '';
+        }
+
+        // 4. SKILLS ACTIVE GRID FILTERING
+        function filterSkills(category) {
+            // Update active state style on filtering category controls buttons
+            const btns = document.querySelectorAll('.skill-category-btn');
+            btns.forEach(btn => {
+                btn.classList.remove('border-primaryBlue', 'bg-primaryBlue/10', 'text-primaryBlue');
+                btn.classList.add('border-white/5', 'bg-white/5', 'text-gray-300');
+            });
+
+            const activeBtn = event.currentTarget;
+            activeBtn.classList.remove('border-white/5', 'bg-white/5', 'text-gray-300');
+            activeBtn.classList.add('border-primaryBlue', 'bg-primaryBlue/10', 'text-primaryBlue');
+
+            // Filter actual skill blocks
+            const items = document.querySelectorAll('.skill-item');
+            items.forEach(item => {
+                if (category === 'all' || item.dataset.category === category) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // 5. DEEP PORTFOLIO CASE STUDY SYSTEM DATA
+        const caseStudyDB = {
+            nexspark: {
+                title: "NEXSPARK '25",
+                category: "Community Cybersecurity Initiative",
+                logo: `<i class="fa-solid fa-shield"></i>`,
+                objective: "Initiate local structural digital safety training. Led and delivered high-impact software, network topology, and security principles at Gurulugomi Maha Vidyalaya to reduce digital vulnerability overheads and upskill students.",
+                implementation: "Collaborated with regional administrative networks, designed structured curriculum elements spanning basic cybersecurity controls, safe communication layers, and open systems introduction.",
+                lessons: "Leadership in community outreach requires high-level communication of highly specialized ideas to clean up complex conceptual blocks.",
+                future: "Developing an online structured peer-to-peer security dashboard to keep the local regional network connected and safe post-event.",
+                flow: `
+[Community Segment] --> (Curriculum Design) --> [Operational Event Setup]
+                                                     |
+                                                     v
+[Interactive QA Metrics] <--- (Audit Assessments) <--- [Practical Hands-on Lab]`
+            },
+            hydrosentinel: {
+                title: "HydroSentinel Precision System",
+                category: "IoT Martian Agriculture Simulation",
+                logo: `<i class="fa-solid fa-seedling"></i>`,
+                objective: "Develop custom automated hydration monitoring systems suited for high-stress aeroponic environments (such as Martian simulation modules) requiring ultra-precise resource control.",
+                implementation: "Engineered ESP8266 node telemetry frameworks connected to moisture arrays. Programmed Blynk & Node-RED servers to evaluate data thresholds and automate water pump triggers.",
+                lessons: "Hardware power conservation inside extreme simulation contexts requires strict loop efficiency and clean transmission protocols.",
+                future: "Integrating reinforcement machine learning pipelines directly on the edge microcontroller to dynamically optimize scheduling.",
+                flow: `
+[Moisture Array Sensors] --> (ESP8266 Core Node) --> [MQTT Gateway Broker]
+                                                          |
+                                                          v
+[Blynk / Automated Pump] <--- (Telemetry Engine) <--- [Node-RED Dashboards]`
+            },
+            eloop: {
+                title: "Lanka E-Loop Innovations ERP",
+                category: "Enterprise Control Software",
+                logo: `<i class="fa-solid fa-industry"></i>`,
+                objective: "Create a scalable, enterprise-level digital command dashboard to manage upcycled electronics processing and automated waste-to-resource tracking.",
+                implementation: "Built a fully dynamic interface mapping complex inventory, routing datasets, and processing metrics. Built using high-performance components.",
+                lessons: "Managing real-time status telemetry requires highly modular client-side state managers to prevent layout rendering delays.",
+                future: "Connecting database workflows to continuous forecasting algorithms to automatically project material valuation trends.",
+                flow: `
+[E-Waste Sourcing Data] --> (Material Inventory) --> [Processing Operations Hub]
+                                                             |
+                                                             v
+[Resource Metric Reports] <--- (State Operations) <--- [TypeScript / React ERP UI]`
+            },
+            remomed: {
+                title: "RemoMed Telemedicine Portal",
+                category: "Modular Clinical Portals",
+                logo: `<i class="fa-solid fa-hospital-user"></i>`,
+                objective: "Streamline patient check-in logic, health telemetry transmission, and direct scheduling components in an intuitive single-page interface.",
+                implementation: "Designed using highly responsive CSS grids with Tailwind, maximizing readable data spacing while keeping system overhead minimal.",
+                lessons: "Clinical design workflows must put maximum accessibility indicators first to protect vulnerable or non-technical demographics.",
+                future: "Adding secure serverless database encryption keys to maximize compliance across international patient records standards.",
+                flow: `
+[User Authentication] --> (Scheduling Engine) --> [Clinical Telehealth Matrix]
+                                                        |
+                                                        v
+[Secure Portal Session] <--- (Tailwind Grid Framework) <--- [Workflow Log Datasets]`
+            },
+            urbannexus: {
+                title: "Urban Nexus Platform Blueprint",
+                category: "Advanced Smart City UX Blueprinting",
+                logo: `<i class="fa-solid fa-city"></i>`,
+                objective: "Design deep, multi-tiered visual controls mapping smart public transit systems, real-time electrical grid distribution, and emergency dispatch workflows.",
+                implementation: "Constructed extensive layout systems in Figma, conducting critical wireframe testing inside Balsamiq mock environments to evaluate citizen dashboards.",
+                lessons: "Managing highly complex multi-dashboard structures requires strict adherence to design component hierarchies.",
+                future: "Integrating real-world public sensor data directly into the mock design system to create interactive city visualizations.",
+                flow: `
+[Figma Component Library] --> (Balsamiq UI Layouts) --> [Admin Operations Console]
+                                                               |
+                                                               v
+[Simulated Utility Dashboard] <--- (Transit & Safety Rules) <--- [Citizen Mobile Portal]`
+            },
+            ecotourism: {
+                title: "Eco-Tourism Footprint Analytics",
+                category: "Interactive Data Visualization",
+                logo: `<i class="fa-solid fa-earth-americas"></i>`,
+                objective: "Model environmental impact metrics, travel statistics, and sustainable behavior patterns in an interactive frontend dashboard.",
+                implementation: "Mastered lightweight client-side charting libraries (Chart.js) combined with native CSS interactions to show responsive trend graphs.",
+                lessons: "Data visualizations must remain lightweight and dynamic to avoid performance drops across mobile device browsers.",
+                future: "Extending visualization grids to include live geospatial maps charting regional sustainability indexes.",
+                flow: `
+[Travel Metric Input] --> (Chart.js Engine) --> [Interactive Analytics Board]
+                                                       |
+                                                       v
+[Responsive Grid View] <--- (Telemetry Parsing) <--- [Eco Footprint Datasets]`
+            }
+        };
+
+        const modal = document.getElementById('caseStudyModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalObjective = document.getElementById('modalObjective');
+        const modalImplementation = document.getElementById('modalImplementation');
+        const modalLessons = document.getElementById('modalLessons');
+        const modalFuture = document.getElementById('modalFuture');
+        const modalLogoContainer = document.getElementById('modalLogoContainer');
+        const systemFlow = document.getElementById('systemFlow');
+        const modalScrollArea = document.getElementById('modalScrollArea');
+
+        function openCaseStudy(projectId) {
+            const project = caseStudyDB[projectId];
+            if (!project) return;
+
+            modalTitle.textContent = project.title;
+            modalCategory.textContent = project.category;
+            modalObjective.textContent = project.objective;
+            modalImplementation.textContent = project.implementation;
+            modalLessons.textContent = project.lessons;
+            modalFuture.textContent = project.future;
+            modalLogoContainer.innerHTML = project.logo;
+            systemFlow.textContent = project.flow;
+
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Stop background scrolling
+            modalScrollArea.scrollTop = 0; // Reset scroll position
+        }
+
+        function closeCaseStudy() {
+            modal.classList.add('hidden');
+            document.body.style.overflow = ''; // Resume scrolling
+        }
+
+        // Escape Key closing check
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeCaseStudy();
+            }
+        });
+
+        // 6. CONTACT FORM SUBMISSION VIA WEB3FORMS (PRODUCTION SETUP)
+        async function handleFormSubmit(event) {
+            event.preventDefault();
+            const submitBtn = event.currentTarget.querySelector('button[type="submit"]');
+            const btnText = document.getElementById('submitBtnText');
+            
+            const formName = document.getElementById('formName').value;
+            const formEmail = document.getElementById('formEmail').value;
+            const formSubject = document.getElementById('formSubject').value;
+            const formMessage = document.getElementById('formMessage').value;
+
+            // Visual loading state transition
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `<i class="fa-solid fa-spinner animate-spin"></i> <span>Initializing Secure Uplink...</span>`;
+
+            // If the access key is left unchanged, run a beautifully detailed local demo fallback
+            if (WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS" + "_ACCESS_KEY") {
+                setTimeout(() => {
+                    submitBtn.innerHTML = `<i class="fa-solid fa-circle-check text-green-400"></i> <span class="text-green-400">Demo Transmitted Successfully!</span>`;
+                    
+                    // Trigger custom portfolio celebration
+                    confetti({
+                        particleCount: 150,
+                        spread: 80,
+                        origin: { y: 0.8 },
+                        colors: ['#0ea5e9', '#06b6d4', '#8b5cf6']
+                    });
+
+                    document.getElementById('contactForm').reset();
+
+                    setTimeout(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> <span id="submitBtnText">Dispatch Secure Signal</span>`;
+                    }, 4000);
+                }, 2000);
+                return;
+            }
+
+            // Real submission connection block using Web3Forms
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Accept: "application/json"
+                    },
+                    body: JSON.stringify({
+                        access_key: WEB3FORMS_ACCESS_KEY,
+                        name: formName,
+                        email: formEmail,
+                        subject: `Portfolio Message: ${formSubject}`,
+                        message: formMessage
+                    })
+                });
+
+                const result = await response.json();
+                
+                if (response.status === 200) {
+                    submitBtn.innerHTML = `<i class="fa-solid fa-circle-check text-green-400"></i> <span class="text-green-400">Signal Dispatched!</span>`;
+                    confetti({
+                        particleCount: 150,
+                        spread: 85,
+                        origin: { y: 0.8 },
+                        colors: ['#0ea5e9', '#0ea5e9', '#8b5cf6']
+                    });
+                    document.getElementById('contactForm').reset();
+                } else {
+                    throw new Error(result.message || "Uplink validation failure");
+                }
+            } catch (error) {
+                console.error("Transmission error:", error);
+                submitBtn.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-red-500"></i> <span class="text-red-400">Uplink Failed. Try again.</span>`;
+            } finally {
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = `<i class="fa-solid fa-paper-plane"></i> <span id="submitBtnText">Dispatch Secure Signal</span>`;
+                }, 4000);
+            }
+        }
+
+        // 7. PROGRAMMATIC HIGH-PRIORITY CV ASSET DOWNLOAD
+        function downloadCV() {
+            // Trigger customized celebrate confetti particles burst
+            confetti({
+                particleCount: 80,
+                spread: 75,
+                colors: ['#0ea5e9', '#8b5cf6']
+            });
+
+            // Creates a hidden anchor tag configured to download your local file.
+            // Upload your PDF named "Devindu_malshan_resume.pdf" into the same directory as this index.html on Netlify/GitHub.
+            const cvPath = 'Devindu_malshan_resume.pdf';
+            const downloadAnchor = document.createElement('a');
+            downloadAnchor.href = cvPath;
+            downloadAnchor.download = 'Devindu_Malshan_Resume.pdf';
+            downloadAnchor.target = '_blank';
+            
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            document.body.removeChild(downloadAnchor);
+        }
+
+        // 8. MOBILE NAVIGATION NAVIGATION PANEL TOGGLE
+        const mobileNavToggle = document.getElementById('mobileNavToggle');
+        const mobileNavPanel = document.getElementById('mobileNavPanel');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        mobileNavToggle.addEventListener('click', () => {
+            mobileNavPanel.classList.toggle('hidden');
+        });
+
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileNavPanel.classList.add('hidden');
+            });
+        });
+
+    </script>
+</body>
+</html>
