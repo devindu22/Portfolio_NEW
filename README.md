@@ -4,6 +4,8 @@
 
 A modern, high-performance, responsive personal portfolio website designed to showcase professional milestones, web development architecture, and technical projects. This site features integrated API asynchronous communication pipelines, interactive micro-interactions, and a cohesive custom-branded visual layout.
 
+https://devindu-malshan-portfolio.netlify.app/ 
+
 ---
 
 ## 🎨 Design Philosophy & Aesthetics
