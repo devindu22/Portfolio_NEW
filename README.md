@@ -29,9 +29,25 @@ The professional resume acquisition section replaces flat hyperlinks with an eng
 * **Dynamic Feedback:** Clicking the document trigger executes a scoped canvas particle animation, launching a celebration confetti burst directly onto the active viewport.
 * **Target Management:** Automates browser download instructions to retrieve the local asset file (`Devindu_malshan_resume.pdf`) directly from the server's root directory directory structure.
 
-### 3. Real-Time View Telemetry
-* **Live Footprint Monitoring:** Features a non-intrusive profile visitor tracking badge embedded elegantly into the footer.
-* **Dynamic Rendering:** Pulls data dynamically mapped to GitHub repository statistics to aggregate real-time web telemetry and site visibility analytics.
+### 3. Dynamic Memory Arena (Gallery)
+- **Purpose**: Centralized visual repository for project media.
+- **Features**: 
+    - Responsive grid layouts with depth-enabled shadows.
+    - Accented border styling for individual memory cards.
+    - Optimized asset loading for high-resolution imagery.
+
+### 4. Lab Broadcast Logs (Videos)
+- **Purpose**: Chronological documentation of system testing and development logs.
+- **Features**:
+    - Embedded video player support with legacy fallback.
+    - Categorized tagging system (e.g., "Prototype," "Deployment," "Stress Test").
+    - Time-stamped event tracking.
+
+## Design Philosophy
+This interface prioritizes a "dark-first" theme to reduce eye strain, utilizing subtle drop shadows to create 3D depth and consistent border accents to differentiate UI components[cite: 2].
+
+## File Structure
+The project is architected as a single-file application for streamlined deployment[cite: 1]:
 
 ---
 
@@ -46,11 +62,16 @@ The professional resume acquisition section replaces flat hyperlinks with an eng
 ## 📂 Project Architecture
 
 ```text
+/project-root
+│
+├── index.php           # Main entry point (PHP/HTML/JS)
 ├── assets/
-│   ├── favicon.png               # Custom blue-purple gradient 'DM' icon
-│   └── Devindu_malshan_resume.pdf # Local downloadable resume asset
-├── css/
-│   └── style.css                 # Custom utility styling and responsive rules
+│   ├── css/
+│   │   └── style.css   # Contains all depth and accent styling
+│   ├── js/
+│   │   └── app.js      # Core logic for Dynamic Arena & Broadcast Logs
+│   └── images/         # Asset repository
+└── README.md           # Documentation
 ├── js/
 │   └── main.js                  # Contact handler, Web3Forms token engine, and confetti script
 ├── index.html                    # Master entry file containing DOM structures
